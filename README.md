@@ -1,4 +1,4 @@
-# [Example WASI proposal]
+# `wasi-sql`
 
 A proposed [WebAssembly System Interface](https://github.com/WebAssembly/WASI) API.
 
