@@ -54,7 +54,7 @@ interface "wasi:sql" {
 
 ## Worlds
 
-```
+```wit
 world "wasi:sql/http-sql" {
     import sql: "wasi:sql"
     
