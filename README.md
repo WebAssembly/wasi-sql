@@ -1,30 +1,22 @@
 # [Example WASI proposal]
 
-This template can be used to start a new proposal, which can then be proposed in the WASI Subgroup meetings.
-
-The sections below are recommended. However, every proposal is different, and the community can help you flesh out the proposal, so don't block on having something filled in for each one of them.
-
-Thank you to the W3C Privacy CG for the [inspiration](https://github.com/privacycg/template)!
-
-# [Title]
-
 A proposed [WebAssembly System Interface](https://github.com/WebAssembly/WASI) API.
 
 ### Current Phase
 
-[Fill in the current phase, e.g. Phase 1]
+`wasi-messaging` is currently in [Phase 1](https://github.com/WebAssembly/WASI/blob/main/Proposals.md#phase-1---feature-proposal-cg).
 
 ### Champions
 
-- [Champion 1]
-- [Champion 2]
-- [etc.]
+- [Dan Chiarlone](https://github.com/danbugs)
+- [David Justice](https://github.com/devigned)
+- [Jiaxiao Zhou](https://github.com/Mossaka)
 
 ### Phase 4 Advancement Criteria
 
-TODO before entering Phase 2.
+`wasi-sql` should have at least two implementations (i.e., from service providers, and or cloud providers), and, at the very minimum, pass the testsuite for Windows, Linux, and MacOS.
 
-## Table of Contents [if the explainer is longer than one printed page]
+## Table of Contents
 
 - [Introduction](#introduction)
 - [Goals [or Motivating Use Cases, or Scenarios]](#goals-or-motivating-use-cases-or-scenarios)
