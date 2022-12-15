@@ -44,7 +44,7 @@ interface "wasi:sql" {
     exec: func(q: statement) -> result<_, error>
     
     // common error types
-    enum error {
+    variant error {
         syntax-error(string),
         constraint-violation(string),
         access-violation(string)
