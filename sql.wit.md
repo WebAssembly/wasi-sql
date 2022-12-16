@@ -21,6 +21,7 @@ interface "wasi:sql" {
         time(string),
         timestamp(string),
         binary(list<u8>),
+        null
     }
     
     // iterator for rows
