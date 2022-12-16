@@ -5,7 +5,7 @@
 ```wit
 interface "wasi:sql" {
     // iterator item type
-    resource row {
+    record row {
         field-name: list<string>
         values: list<data-types>
         index: u32
