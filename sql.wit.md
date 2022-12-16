@@ -13,8 +13,12 @@ interface "wasi:sql" {
     
     // common data types
     variant data-types {
-        integer(s32),
+        int32(s32),
+        int64(s64),
+        uint32(u32),
+        uint64(u64),
         float(float64),
+        double(float64),
         str(string),
         boolean(bool),
         date(string),
