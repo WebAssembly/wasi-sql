@@ -5,14 +5,14 @@
 ```wit
 interface "wasi:sql" {
     // iterator item type
-    record row {
-        field-name: list<string>
-        values: list<data-types>
+    record item {
+        field-name: string
+        values: data-type
         index: u32
     }
     
     // common data types
-    variant data-types {
+    variant data-type {
         int32(s32),
         int64(s64),
         uint32(u32),
@@ -28,8 +28,8 @@ interface "wasi:sql" {
         null
     }
     
-    // iterator for rows
-    resource sql-result {
+    // iterator for item
+    resource row {
         next: func() -> option<row>
     }
     
@@ -43,7 +43,7 @@ interface "wasi:sql" {
     // implementors can make use of that fact to optimize 
     // the performance of query execution (e.g., using
     // indexes).
-    query: func(q: statement) -> result<sql-result, error>
+    query: func(q: statement) -> result<row, error>
     
     // exec is for modifying data in the database.
     exec: func(q: statement) -> result<_, error>

@@ -35,27 +35,54 @@ A proposed [WebAssembly System Interface](https://github.com/WebAssembly/WASI) A
 
 ### Introduction
 
-[The "executive summary" or "abstract". Explain in a few sentences what the goals of the project are, and a brief overview of how the solution works. This should be no more than 1-2 paragraphs.]
+The `wasi-sql` interface allows WebAssembly programs to interact with SQL databases in a generic and safe way. It provides functions for querying and modifying data, using prepared statements and handling errors. The interface is flexible and consistent, supporting various SQL flavors.
 
-### Goals [or Motivating Use Cases, or Scenarios]
+### Goals
 
-[What is the end-user need which this project aims to address?]
+The `wasi-sql` interface aims to provide a consistent and easy-to-use way for WebAssembly programs to access and manipulate data stored in SQL databases. It targets the features commonly used by 80% of user applications. By focusing on commonly used features, the interface aims to provide a simple and reliable way to build stateful services that access SQL databases.
+
+The `wasi-sql` interface abstracts away specific SQL flavors and database APIs, allowing WebAssembly programs to be portable across different SQL databases that support the interface. It also abstracts away the network stack, allowing WebAssembly programs to access SQL databases without worrying about the specific network protocol used. This allows users to focus on building their applications, rather than communication details with the database.
 
 ### Non-goals
 
-[If there are "adjacent" goals which may appear to be in scope but aren't, enumerate them here. This section may be fleshed out as your design progresses and you encounter necessary technical and other trade-offs.]
+- The `wasi-sql` interface does not aim to provide support for every possible feature of SQL databases. Instead, it focuses on the features that are commonly used by 80% of user applications.
+- The `wasi-sql` interface does not aim to provide support for specific database APIs or network protocols. It abstracts away these implementation details to allow WebAssembly programs to be portable across different SQL databases that support the interface.
+- The `wasi-sql` interface does not aim to address control-plane behavior or functionality, such as cluster management, monitoring, data consistency, replication, or sharding. These are provider-specific and are not specified by the wasi-sql interface.
 
 ### API walk-through
 
 [Walk through of how someone would use this API.]
 
-#### [Use case 1]
+#### Use case 1: Query data from a table
 
-[Provide example code snippets and diagrams explaining how the API would be used to solve the given problem]
+Imagine you have a WebAssembly program that needs to query data from a table in a SQL database. The following Rust code shows how you can use the `wasi-sql` interface to execute a SELECT statement and iterate over the resulting rows.
 
-#### [Use case 2]
+```rs
+// Create a prepared statement
+let stmt = sql::statement::create("SELECT * FROM users WHERE name = ? AND age = ?", vec!["John Doe", "32"])?;
 
-[etc.]
+// Execute the query and get the result set
+let result = sql::query(stmt)?;
+
+// Iterate over the rows in the result set
+while let Some(row) = result.next() {
+    // Print the column names and values for the current row
+    println!("Column name: {:?}", row.field_name);
+    println!("Value: {:?}", row.value);
+}
+```
+
+#### Use case 2: Insert data into a table
+
+Imagine you have a WebAssembly program that needs to insert a row into a table in a SQL database. The following Rust code shows how you can use the wasi-sql interface to execute an INSERT statement.
+
+```rs
+// Create a prepared statement
+let stmt = sql::statement::create("INSERT INTO users (name, age) VALUES (?, ?)", vec!["Jane Doe", "30"])?;
+
+// Execute the statement
+sql::exec(stmt)?;
+```
 
 ### Detailed design discussion
 
