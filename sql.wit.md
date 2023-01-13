@@ -4,11 +4,10 @@
 
 ```wit
 interface "wasi:sql" {
-    // iterator item type
-    record item {
-        field-name: string
-        values: data-type
-        index: u32
+    // one single row item
+    record row {
+        field-name: string,
+        value: data-type,
     }
     
     // common data types
@@ -28,31 +27,27 @@ interface "wasi:sql" {
         null
     }
     
-    // iterator for item
-    resource row {
-        next: func() -> option<row>
-    }
-    
     // allows parameterized queries
     resource statement {
         // e.g., create("SELECT * FROM users WHERE name = ? AND age = ?", vec!["John Doe", "32"])
-        create: func(s: string, p: list<string>) -> result<statement, error>
+        prepare: func(query: string, params: list<string>) -> result<statement, sql-error>
     }
     
     // query is optimized for querying data, and 
     // implementors can make use of that fact to optimize 
     // the performance of query execution (e.g., using
     // indexes).
-    query: func(q: statement) -> result<row, error>
+    query: func(q: statement) -> result<stream<row>, sql-error>
     
     // exec is for modifying data in the database.
-    exec: func(q: statement) -> result<_, error>
+    exec: func(q: statement) -> result<_, sql-error>
     
     // common error types
-    variant error {
+    variant sql-error {
         syntax-error(string),
         constraint-violation(string),
-        access-violation(string)
+        access-violation(string),
+        unexpected-error(string)
     }
 }
 ```

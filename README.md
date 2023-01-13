@@ -59,13 +59,13 @@ Imagine you have a WebAssembly program that needs to query data from a table in 
 
 ```rs
 // Create a prepared statement
-let stmt = sql::statement::create("SELECT * FROM users WHERE name = ? AND age = ?", vec!["John Doe", "32"])?;
+let stmt = sql::statement::prepare("SELECT * FROM users WHERE name = ? AND age = ?", vec!["John Doe", "32"])?;
 
-// Execute the query and get the result set
-let result = sql::query(stmt)?;
+// Execute the query and get the stream of rows
+let result_stream = sql::query(stmt)?;
 
-// Iterate over the rows in the result set
-while let Some(row) = result.next() {
+// Iterate over the rows in the stream
+for row in result_stream {
     // Print the column names and values for the current row
     println!("Column name: {:?}", row.field_name);
     println!("Value: {:?}", row.value);
@@ -78,7 +78,7 @@ Imagine you have a WebAssembly program that needs to insert a row into a table i
 
 ```rs
 // Create a prepared statement
-let stmt = sql::statement::create("INSERT INTO users (name, age) VALUES (?, ?)", vec!["Jane Doe", "30"])?;
+let stmt = sql::statement::prepare("INSERT INTO users (name, age) VALUES (?, ?)", vec!["Jane Doe", "30"])?;
 
 // Execute the statement
 sql::exec(stmt)?;
