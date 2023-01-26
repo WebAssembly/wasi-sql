@@ -37,7 +37,7 @@ interface "wasi:sql" {
     // implementors can make use of that fact to optimize 
     // the performance of query execution (e.g., using
     // indexes).
-    query: func(q: statement) -> result<stream<row>, sql-error>
+    query: func(q: statement) -> result<list<row>, sql-error>
     
     // exec is for modifying data in the database.
     exec: func(q: statement) -> result<_, sql-error>
