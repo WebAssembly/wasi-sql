@@ -1,0 +1,12 @@
+default interface readwrite {
+    use pkg.types.{statement, row, error}
+    
+    // query is optimized for querying data, and 
+    // implementors can make use of that fact to optimize 
+    // the performance of query execution (e.g., using
+    // indexes).
+    query: func(q: statement) -> result<list<row>, error>
+    
+    // exec is for modifying data in the database.
+    exec: func(q: statement) -> result<_, error>
+}
