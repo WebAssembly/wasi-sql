@@ -8,5 +8,5 @@ default interface readwrite {
     query: func(q: statement) -> result<list<row>, error>
     
     // exec is for modifying data in the database.
-    exec: func(q: statement) -> result<_, error>
+    exec: func(q: statement) -> result<u32, error>
 }
