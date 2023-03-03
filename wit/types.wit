@@ -34,5 +34,10 @@ default interface types {
     // TODO: switch to `resource error { ... }`
     type error = u32
     drop-error: func(e: error)
-    trace-error: func(e: error) -> string    
+    trace-error: func(e: error) -> string 
+
+    /// A connection to a sql store.
+    type connection = u32
+    drop-connection: func(b: connection)
+    open-connection: func(name: string) -> result<connection, error>   
 }
