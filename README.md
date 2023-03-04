@@ -38,5 +38,9 @@ The `wasi-sql` interface abstracts away specific SQL flavors and database APIs, 
 - The `wasi-sql` interface does not aim to provide support for specific database APIs or network protocols. It abstracts away these implementation details to allow WebAssembly programs to be portable across different SQL databases that support the interface.
 - The `wasi-sql` interface does not aim to address control-plane behavior or functionality, such as cluster management, monitoring, data consistency, replication, or sharding. These are provider-specific and are not specified by the wasi-sql interface.
 
+### API walk-through
+
+For a full API walk-through, see [wasi-sql-demo](https://github.com/danbugs/wasi-sql-demo).
+
 > Note: This README needs to be expanded to cover a number of additional fields suggested in the
 [WASI Proposal template](https://github.com/WebAssembly/wasi-proposal-template).
